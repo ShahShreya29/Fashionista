@@ -29,12 +29,12 @@ const ProductController = {
   // getAllProducts : async (req, res) => {
   //   try {
   //     const { category, color, size, minPrice, maxPrice, discount, sort, page, stock } = req.query;
-  
+
   //     // Ensure that 'category' is defined and handle accordingly
   //     if (!category) {
   //       return res.status(400).json({ error: "Category parameter is required" });
   //     }
-  
+
   //     // Call a service method to fetch products based on the provided parameters
   //     const products = await ProductService.getAllProducts({
   //       category,
@@ -47,7 +47,7 @@ const ProductController = {
   //       page,
   //       stock,
   //     });
-  
+
   //     return res.status(200).json(products);
   //   } catch (error) {
   //     console.error("Error fetching products:", error);
@@ -112,25 +112,20 @@ const ProductController = {
     } catch (error) {
       console.error(error);
       res.status(500).json({ error: "Failed to fetch products" });
-
     }
   },
 
-  searchProductsByName: async (req, res) => {
-    const { query } = req.query;
-
+  searchProducts: async (req, res) => {
     try {
-      if (!query) {
-        return res.status(400).json({ error: "Search query is required" });
-      }
-
-      const products = await ProductService.searchProductsByName(query);
-      res.json(products);
+      const { query } = req.query;
+      const products = await ProductService.searchProducts(query);
+      res.status(200).json(products);
     } catch (error) {
-      console.error("Error searching products:", error);
-      res.status(500).json({ error: "Internal Server Error" });
+      console.error('Error searching products:', error);
+      res.status(500).json({ message: 'Error searching products' });
     }
   },
-}; 
+  
+};
 
 module.exports = ProductController;

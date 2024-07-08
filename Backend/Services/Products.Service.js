@@ -137,18 +137,22 @@ const ProductService = {
       throw error; 
     }
   },
-
-  searchProductsByName: async (searchQuery) => {
+  
+  searchProducts: async (query) => {
     try {
-      // Case-insensitive search using regular expression
-      const query = { product_name: { $regex: new RegExp(searchQuery, 'i') } };
-      const products = await Product.find(query).lean().exec();
+      const products = await Product.find({
+        product_name: { $regex: query, $options: 'i' } // Case-insensitive search for product_name
+      }).exec();
       return products;
     } catch (error) {
-      console.error('Error searching products by name:', error);
-      throw new Error('Error searching products by name: ' + error.message);
+      console.error('Error searching products:', error);
+      throw new Error('Error searching products');
     }
   },
+
+  // const { query } = req.query;
+// 
+
 
 }; 
 

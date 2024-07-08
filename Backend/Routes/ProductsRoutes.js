@@ -9,7 +9,7 @@ router.get('/:id', ProductController.getProductById);
 router.put('/products/:id', upload.single('product_img'), ProductController.updateProduct);
 router.delete('/:id', ProductController.deleteProduct);
 router.get('/', ProductController.product);
-router.get('/search', ProductController.searchProductsByName);
+router.get('/search', ProductController.searchProducts);
 
 
 
